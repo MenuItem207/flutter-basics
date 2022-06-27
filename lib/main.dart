@@ -119,11 +119,50 @@ class _Example3State extends State<Example3> {
                 },
                 child: Container(height: 150, width: 150, color: Colors.blue),
               ),
+              ThisIsAStatelessWidget('xingzhi'),
             ],
           ),
         ),
       ),
     );
+  }
+}
+
+/// used for rendering components that do not need state
+/// the component will not update after being rendered.
+class ThisIsAStatelessWidget extends StatelessWidget {
+  final String
+      a; // for widgets, the variable you want to intialise with constructor must be final
+  const ThisIsAStatelessWidget(this.a, {Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    // styling is done here
+    return Text(a);
+  }
+}
+
+/// used for rendering components that can have a updated state
+class ThisIsAStatefulWidget extends StatefulWidget {
+  final String a;
+  const ThisIsAStatefulWidget(this.a, {Key? key}) : super(key: key);
+
+  @override
+  State<ThisIsAStatefulWidget> createState() => _ThisIsAStatefulWidgetState();
+}
+
+class _ThisIsAStatefulWidgetState extends State<ThisIsAStatefulWidget> {
+  int b = 4; // can update state in a stateful widget
+  @override
+  Widget build(BuildContext context) {
+    // styling is done here
+    return GestureDetector(
+      onTap: () {
+        b = 5;
+        setState(() {});
+      },
+      child: Text(widget.a),
+    ); // to accces variables initialised in the constructor, call widget.variable i.e widget.a
   }
 }
 
