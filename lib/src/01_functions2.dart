@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 /// in this section we'll discuss variable scopes
 
 // I have a variable called abc here with the value of 5
@@ -66,4 +68,39 @@ void doSomethingElseOnceAgain() {
   int c = 7; // c can only be accessed within this function
   print(b); // b doesn't exist here, only within main()
   print(a); // a is GLOBAL
+}
+
+// lets look at scope within a flutter widget
+class MyWidget extends StatefulWidget {
+  const MyWidget({Key? key}) : super(key: key);
+
+  @override
+  State<MyWidget> createState() => _MyWidgetState();
+}
+
+class _MyWidgetState extends State<MyWidget> {
+  // i create an instance of a variable here
+  int variable1 = 5;
+  @override
+  Widget build(BuildContext context) {
+    int variable2 = 3;
+    return Column(
+      children: [
+        GestureDetector(
+          onTap: () {
+            int avariable = 5; // this variable is only exist within this function
+            print(variable1);
+            print(variable2);
+          },
+        ),
+        GestureDetector(
+          onTap: () {
+            print(variable1);
+            print(variable2);
+            print(avariable); // this variable doesnt exist
+          },
+        ),
+      ],
+    );
+  }
 }
